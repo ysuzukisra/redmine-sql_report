@@ -1,3 +1,8 @@
 = sql_report
 
-Description goes here
+プラグインでハードコード(!)したSQLクエリを実行するプラグイン
+
+== インストール
+
+  cd .../plugins
+  git clone https://github.com/ysuzukisra/redmine-sql_report.git sql_report

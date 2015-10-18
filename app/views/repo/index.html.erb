@@ -1,0 +1,37 @@
+<%= javascript_include_tag "handsontable.full.min", :plugin=>"find_by_sql" %>
+<%= stylesheet_link_tag "handsontable.full.min", :plugin=>"find_by_sql" %>
+<%= javascript_include_tag "sql_report", :plugin=>"sql_report" %>
+
+<h2><%= l(:label_repo) %></h2>
+
+<div id="debug" style="display: none">
+    @query_params = <%= @query_params %><br>
+    @query = <%= @query %><br>
+    @query_spec[:sql] = <%= @query_spec[:sql] %><br>
+</div>
+
+<form action="/repo" method="get" id="repo_para_form">
+    <fieldset id="para" class="collapsible">
+        <legend onclick="toggleFieldset(this);"><%= l(:label_params) %></legend>
+        <div>
+            <p>
+                <label for="repo_user"><%= l(:label_user) %></label>
+                <select name="repo_user">
+                    <% User.all.each do |u| %>
+                        <option value="<%= u.id %>" <%= u.id == @query_params[:repo_user] ? 'selected' : '' %>><%= u.login + " : " + u.lastname + " " + u.firstname %></option>
+                    <% end %>
+                </select>
+    
+                <label for="repo_date"><%= l(:label_month) %></label>
+                <input type="text" id="repo_date" name="repo_date" size="10" required="true" value="<%= @query_params[:repo_date] %>" /><%= calendar_for('repo_date') %>
+            </p>
+        </div>
+    </fieldset>
+    <p class="buttons">
+      <%= link_to_function l(:button_apply), '$("#repo_para_form").submit()', :class => 'icon icon-checked' %>
+      <%= link_to l(:button_clear), {}, :class => 'icon icon-reload'  %>
+    </p>
+</form>
+
+<div id="grid" style="width: 90%" data-option="<%= @grid_option %>" data-data="<%= @result.to_json %>"></div>
+    
