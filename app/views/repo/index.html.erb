@@ -18,7 +18,7 @@
                 <label for="repo_user"><%= l(:label_user) %></label>
                 <select name="repo_user">
                     <% User.all.each do |u| %>
-                        <option value="<%= u.id %>" <%= u.id == @query_params[:repo_user] ? 'selected' : '' %>><%= u.login + " : " + u.lastname + " " + u.firstname %></option>
+                        <option value="<%= u.id %>" <%= u.id == @query_params[:repo_user].to_i ? 'selected' : '' %>><%= u.login + " : " + u.lastname + " " + u.firstname %></option>
                     <% end %>
                 </select>
     
